@@ -55,8 +55,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       body: FutureBuilder<List<Product>>(
         future: _products,
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
           final products = snapshot.data!;
           return ListView.builder(
             itemCount: products.length,

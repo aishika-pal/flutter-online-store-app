@@ -28,8 +28,9 @@ class _CartScreenState extends State<CartScreen> {
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: cartService.cartItems(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
           final items = snapshot.data!;
           if (items.isEmpty) return const Center(child: Text('Cart is empty.'));
           return ListView.builder(
