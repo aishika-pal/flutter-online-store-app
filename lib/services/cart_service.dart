@@ -9,15 +9,20 @@ class CartService {
   final _db = FirebaseFirestore.instance;
   User? get _user => FirebaseAuth.instance.currentUser;
 
+  /// Stream of cart items for the current user.
   Stream<List<Map<String, dynamic>>> cartItems() {
     return _db
         .collection('carts')
         .doc(_user!.uid)
         .collection('items')
         .snapshots()
-        .map((snap) => snap.docs.map((doc) => {...doc.data(), 'id': doc.id}).toList());
+        .map(
+          (snap) =>
+              snap.docs.map((doc) => {...doc.data(), 'id': doc.id}).toList(),
+        );
   }
 
+  /// Add a product to the cart. If it exists, increment quantity.
   Future<void> addToCart(Product product) async {
     final cartRef = _db.collection('carts').doc(_user!.uid);
     final itemRef = cartRef.collection('items').doc(product.id);
@@ -34,8 +39,13 @@ class CartService {
     }
   }
 
+  /// Update the quantity of a product in the cart. Removes item if quantity <= 0.
   Future<void> updateQuantity(String productId, int quantity) async {
-    final itemRef = _db.collection('carts').doc(_user!.uid).collection('items').doc(productId);
+    final itemRef = _db
+        .collection('carts')
+        .doc(_user!.uid)
+        .collection('items')
+        .doc(productId);
     if (quantity <= 0) {
       await itemRef.delete();
     } else {
@@ -43,8 +53,13 @@ class CartService {
     }
   }
 
+  /// Remove a product from the cart.
   Future<void> removeFromCart(String productId) async {
-    final itemRef = _db.collection('carts').doc(_user!.uid).collection('items').doc(productId);
+    final itemRef = _db
+        .collection('carts')
+        .doc(_user!.uid)
+        .collection('items')
+        .doc(productId);
     await itemRef.delete();
   }
 }

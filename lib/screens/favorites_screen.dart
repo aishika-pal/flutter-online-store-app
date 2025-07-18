@@ -63,10 +63,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             itemCount: products.length,
             itemBuilder: (context, i) {
               final product = products[i];
-              return ProductTile(
-                product: product,
-                onAddToCart: () => cartService.addToCart(product),
-                favoriteService: favoriteService,
+              return ListTile(
+                leading: Image.network(product.image, width: 50, height: 50),
+                title: Text(product.title),
+                subtitle: Text('\$${product.price}'),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () => favoriteService.toggleFavorite(product),
+                ),
               );
             },
           );

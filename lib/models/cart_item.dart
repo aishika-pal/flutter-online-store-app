@@ -19,7 +19,7 @@ class CartItem {
       title: map['title'],
       image: map['image'],
       price: (map['price'] as num).toDouble(),
-      quantity: map['quantity'] ?? 1,
+      quantity: (map['quantity'] as num?)?.toInt() ?? 1,
     );
   }
 

@@ -27,12 +27,16 @@ class ProductTile extends StatelessWidget {
             icon: const Icon(Icons.shopping_cart),
             onPressed: onAddToCart,
           ),
+          // Favorite toggle button
           StreamBuilder<bool>(
             stream: favoriteService.isFavorite(product.id),
             builder: (context, snapshot) {
               final isFav = snapshot.data ?? false;
               return IconButton(
-                icon: Icon(isFav ? Icons.favorite : Icons.favorite_border, color: isFav ? Colors.red : null),
+                icon: Icon(
+                  isFav ? Icons.favorite : Icons.favorite_border,
+                  color: isFav ? Colors.red : null,
+                ),
                 onPressed: () => favoriteService.toggleFavorite(product),
               );
             },

@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import '../models/product.dart';
 
 class ApiService {
-  final String apiUrl = 'https://fakestoreapi.com/products';
+  final String apiUrl =
+      'https://app.beeceptor.com/mock-server/fake-store-api/products';
 
   Future<List<Product>> fetchProducts() async {
     final response = await http.get(Uri.parse(apiUrl));

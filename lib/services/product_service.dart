@@ -7,7 +7,11 @@ import '../models/product.dart';
 
 class ProductService {
   Future<List<Product>> fetchProducts() async {
-    final res = await http.get(Uri.parse('https://fakestoreapi.com/products'));
+    final res = await http.get(
+      Uri.parse(
+        'https://app.beeceptor.com/mock-server/fake-store-api/products',
+      ),
+    );
     final List data = json.decode(res.body);
     return data.map((e) => Product.fromJson(e)).toList();
   }

@@ -20,7 +20,11 @@ class FavoriteService {
   }
 
   Future<void> toggleFavorite(Product product) async {
-    final favRef = _db.collection('users').doc(_user!.uid).collection('favorites').doc(product.id);
+    final favRef = _db
+        .collection('users')
+        .doc(_user!.uid)
+        .collection('favorites')
+        .doc(product.id);
     final fav = await favRef.get();
     if (fav.exists) {
       await favRef.delete();
